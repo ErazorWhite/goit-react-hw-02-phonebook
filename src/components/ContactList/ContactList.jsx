@@ -24,4 +24,5 @@ export default ContactList;
 
 ContactList.propTypes = {
   contacts: PropTypes.array.isRequired,
+  deletePhoneBookEntry: PropTypes.func.isRequired,
 };

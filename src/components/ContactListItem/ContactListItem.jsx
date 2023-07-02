@@ -3,6 +3,7 @@ import {
   StyledListItem,
   StyledContactEntryBox,
 } from './ContactListItem.styled';
+import PropTypes from 'prop-types';
 
 const ContactListItem = ({ name, number, deletePhoneBookEntry, id }) => {
   return (
@@ -18,6 +19,13 @@ const ContactListItem = ({ name, number, deletePhoneBookEntry, id }) => {
       </StyledDeleteButton>
     </StyledListItem>
   );
+};
+
+ContactListItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  deletePhoneBookEntry: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ContactListItem;
