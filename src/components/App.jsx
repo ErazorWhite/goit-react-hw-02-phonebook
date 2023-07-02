@@ -60,13 +60,18 @@ export class App extends Component {
       <div style={{ padding: '20px' }}>
         <h1>Phonebook</h1>
         <ContactForm createPhoneBookEntry={this.createPhoneBookEntry} />
-
         <h2>Contacts</h2>
-        <Filter onChange={this.handleSearchByName} />
-        <ContactList
-          contacts={filteredContacts}
-          deletePhoneBookEntry={this.deletePhoneBookEntry}
-        />
+        {this.state.contacts.length ? (
+          <>
+            <Filter onChange={this.handleSearchByName} />
+            <ContactList
+              contacts={filteredContacts}
+              deletePhoneBookEntry={this.deletePhoneBookEntry}
+            />
+          </>
+        ) : (
+          <p>There are no contacts!</p>
+        )}
       </div>
     );
   }

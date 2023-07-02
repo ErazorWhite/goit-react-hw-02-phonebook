@@ -23,7 +23,7 @@ const ContactListItem = ({ name, number, deletePhoneBookEntry, id }) => {
 
 ContactListItem.propTypes = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.string.isRequired,
   deletePhoneBookEntry: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
