@@ -59,11 +59,7 @@ const schema = yup.object().shape({
 // Далее идёт компонент формы
 const ContactForm = ({ createPhoneBookEntry }) => {
   const handleSubmit = (values, { resetForm }) => {
-    try {
-      createPhoneBookEntry(values);
-    } catch (err) {
-      Notify.failure(err.message);
-    }
+      createPhoneBookEntry({...values});
     resetForm();
   };
 

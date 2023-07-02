@@ -3,6 +3,7 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix';
 
 export class App extends Component {
   state = {
@@ -18,8 +19,10 @@ export class App extends Component {
   createPhoneBookEntry = data => {
     const normalizedData = data.name.toLowerCase();
     const { contacts } = this.state;
-    if (contacts.some(({ name }) => name.toLowerCase() === normalizedData))
-      throw new Error('Such a contact already exists!');
+    if (contacts.some(({ name }) => name.toLowerCase() === normalizedData)) {
+      Notify.failure("Such a contact already axists!");
+      return 
+    };
 
     const newPhoneBookEntry = {
       ...data,
