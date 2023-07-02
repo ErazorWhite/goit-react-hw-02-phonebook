@@ -18,11 +18,7 @@ export class App extends Component {
   createPhoneBookEntry = data => {
     const normalizedData = data.name.toLowerCase();
     const { contacts } = this.state;
-    if (
-      contacts
-        .flatMap(({ name }) => [name.toLowerCase()])
-        .includes(normalizedData)
-    )
+    if (contacts.some(({ name }) => name.toLowerCase() === normalizedData))
       throw new Error('Such a contact already exists!');
 
     const newPhoneBookEntry = {
