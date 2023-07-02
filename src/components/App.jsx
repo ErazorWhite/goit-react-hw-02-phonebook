@@ -20,7 +20,7 @@ export class App extends Component {
     const normalizedData = data.name.toLowerCase();
     const { contacts } = this.state;
     if (contacts.some(({ name }) => name.toLowerCase() === normalizedData)) {
-      Notify.failure("Such a contact already axists!");
+      Notify.failure("Such a contact already exists!");
       return 
     };
 
