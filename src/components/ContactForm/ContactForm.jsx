@@ -48,7 +48,7 @@ const schema = yup.object().shape({
     .min(3, 'Too short!')
     .max(32, 'Too long!')
     .notOneOf(['1234567890'], 'Invalid name') 
-    .matches(/^[a-zA-Z]+$/, 'Invalid name')
+    .matches(/^[a-zA-Z\s]+$/, 'Invalid name')
     .required('Required!'),
   number: yup
     .string()
