@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
-import { Form } from 'formik';
+import { Form, Field } from 'formik';
+import MaskedInput from 'react-text-mask';
 
 export const FormConstolsContainer = styled.div`
   border: 1px solid black;
@@ -20,6 +21,16 @@ export const StyledForm = styled(Form)`
   padding: 20px;
 `;
 
+export const StyledField = styled(Field)`
+  border: 1px solid #C0C0C0;
+  padding: 5px;
+`;
+
+export const StyledMaskedInput = styled(MaskedInput)`
+  border: 1px solid #C0C0C0;
+  padding: 5px;
+`;
+
 export const FieldContainer = styled.div`
   margin-bottom: 20px;
 `;
@@ -27,4 +38,9 @@ export const FieldContainer = styled.div`
 export const StyledErrorMessage = styled.div`
   font-size: 0.8em;
   color: red;
+`;
+
+export const StyledListItem = styled.li`
+  font-size: 1em;
+  font-weight: 500;
 `;

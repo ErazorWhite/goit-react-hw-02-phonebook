@@ -6,6 +6,7 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: ''
   };
 
   createPhoneBookEntry = data => {
@@ -22,12 +23,11 @@ export class App extends Component {
   };
 
   render() {
-    const { contacts, name } = this.state;
+    const { contacts } = this.state;
 
     return (
       <PhoneBookForm
         contacts={contacts}
-        name={name}
         createPhoneBookEntry={this.createPhoneBookEntry}
       />
     );
