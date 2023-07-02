@@ -1,5 +1,4 @@
-import { Formik, Field, ErrorMessage } from 'formik';
-import Filter from 'components/Filter/Filter';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import {
@@ -9,9 +8,8 @@ import {
   FieldContainer,
   StyledLabel,
   StyledErrorMessage,
-  StyledListItem,
   StyledMaskedInput, // Франкенштейн из Masked + Styled, который под капотом ещё наверное Field от формика инкапсулирует
-} from './PhonebookForm.styled';
+} from './ContactForm.styled';
 
 // Инпут маска для номера телефона
 const phoneNumberMask = [
@@ -55,19 +53,10 @@ const schema = yup.object().shape({
 });
 
 // Далее идёт компонент формы
-const PhoneBookForm = ({
-  contacts,
-  filter,
-  createPhoneBookEntry,
-  searchContactByName,
-}) => {
+const ContactForm = ({ createPhoneBookEntry }) => {
   const handleSubmit = (values, { resetForm }) => {
     createPhoneBookEntry(values);
     resetForm();
-  };
-
-  const handleSearchByName = ({ target: { value } }) => {
-    searchContactByName(value);
   };
 
   return (
@@ -77,7 +66,6 @@ const PhoneBookForm = ({
       validationSchema={schema}
     >
       <StyledForm>
-        <h2>Phonebook</h2>
         <FormConstolsContainer>
           <StyledLabel htmlFor="name">
             Name
@@ -113,28 +101,17 @@ const PhoneBookForm = ({
               <ErrorMessage name="number" component={StyledErrorMessage} />
             </FieldContainer>
           </StyledLabel>
-
           <div>
             <button type="submit">Add Contact</button>
           </div>
         </FormConstolsContainer>
-        <h2>Contacts</h2>
-        <Filter value={filter} onChange={handleSearchByName} />
-        <ul>
-          {contacts.map(({ id, name, number }) => (
-            <StyledListItem key={id}>
-              {name}: {number}
-            </StyledListItem>
-          ))}
-        </ul>
       </StyledForm>
     </Formik>
   );
 };
 
-PhoneBookForm.propTypes = {
-  contacts: PropTypes.array.isRequired,
+ContactForm.propTypes = {
   createPhoneBookEntry: PropTypes.func.isRequired,
 };
 
-export default PhoneBookForm;
+export default ContactForm;

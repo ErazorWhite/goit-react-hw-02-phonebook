@@ -1,5 +1,7 @@
 import { Component } from 'react';
-import PhoneBookForm from './PhonebookForm/PhonebookForm';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
+import Filter from 'components/Filter/Filter';
 import { nanoid } from 'nanoid';
 
 export class App extends Component {
@@ -21,14 +23,13 @@ export class App extends Component {
       id: nanoid(),
     };
 
-    this.setState(
-      prevState => ({
-        contacts: [...prevState.contacts, newPhoneBookEntry],
-      }),
-      () => {
-        console.log('Updated contacts:', this.state.contacts); // Вывод состояния после обновления
-      }
-    );
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newPhoneBookEntry],
+    }));
+  };
+
+  handleSearchByName = ({ target: { value } }) => {
+    this.searchContactByName(value);
   };
 
   searchContactByName = contactName => {
@@ -43,12 +44,14 @@ export class App extends Component {
     );
 
     return (
-      <PhoneBookForm
-        contacts={filteredContacts}
-        filter={filter}
-        createPhoneBookEntry={this.createPhoneBookEntry}
-        searchContactByName={this.searchContactByName}
-      />
+      <div style={{ padding: '20px' }}>
+        <h1>Phonebook</h1>
+        <ContactForm createPhoneBookEntry={this.createPhoneBookEntry} />
+
+        <h2>Contacts</h2>
+        <Filter onChange={this.handleSearchByName} />
+        <ContactList contacts={filteredContacts} />
+      </div>
     );
   }
 }

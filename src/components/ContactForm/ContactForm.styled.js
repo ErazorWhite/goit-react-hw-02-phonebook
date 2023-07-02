@@ -18,16 +18,15 @@ export const StyledLabel = styled.label`
 
 export const StyledForm = styled(Form)`
   max-width: 500px;
-  padding: 20px;
 `;
 
 export const StyledField = styled(Field)`
-  border: 1px solid #C0C0C0;
+  border: 1px solid #c0c0c0;
   padding: 5px;
 `;
 
 export const StyledMaskedInput = styled(MaskedInput)`
-  border: 1px solid #C0C0C0;
+  border: 1px solid #c0c0c0;
   padding: 5px;
 `;
 
