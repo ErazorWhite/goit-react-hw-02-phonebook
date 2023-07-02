@@ -1,17 +1,21 @@
-import React from 'react';
-import { StyledListItem } from 'components/ContactForm/ContactForm.styled';
+import ContactListItem from 'components/ContactListItem/ContactListItem';
+import { StyledUnorderedList } from './ContactList.styled';
 import PropTypes from 'prop-types';
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, deletePhoneBookEntry }) => {
   return (
     <>
-      <ul>
+      <StyledUnorderedList>
         {contacts.map(({ id, name, number }) => (
-          <StyledListItem key={id}>
-            {name}: {number}
-          </StyledListItem>
+          <ContactListItem
+            key={id}
+            id={id}
+            name={name}
+            number={number}
+            deletePhoneBookEntry={deletePhoneBookEntry}
+          />
         ))}
-      </ul>
+      </StyledUnorderedList>
     </>
   );
 };

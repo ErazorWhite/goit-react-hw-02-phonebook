@@ -8,6 +8,7 @@ import {
   FieldContainer,
   StyledLabel,
   StyledErrorMessage,
+  StyledSubmitButton,
   StyledMaskedInput, // Франкенштейн из Masked + Styled, который под капотом ещё наверное Field от формика инкапсулирует
 } from './ContactForm.styled';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -46,6 +47,8 @@ const schema = yup.object().shape({
     .string()
     .min(3, 'Too short!')
     .max(32, 'Too long!')
+    .notOneOf(['1234567890'], 'Invalid name') 
+    .matches(/^[a-zA-Z]+$/, 'Invalid name')
     .required('Required!'),
   number: yup
     .string()
@@ -107,7 +110,7 @@ const ContactForm = ({ createPhoneBookEntry }) => {
             </FieldContainer>
           </StyledLabel>
           <div>
-            <button type="submit">Add Contact</button>
+            <StyledSubmitButton type="submit">Add Contact</StyledSubmitButton>
           </div>
         </FormConstolsContainer>
       </StyledForm>

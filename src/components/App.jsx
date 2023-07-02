@@ -3,7 +3,6 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import { nanoid } from 'nanoid';
-import { normalizeOpts } from 'imask';
 
 export class App extends Component {
   state = {
@@ -15,8 +14,6 @@ export class App extends Component {
     ],
     filter: '',
   };
-
-  filteredContacts = this.state.contacts;
 
   createPhoneBookEntry = data => {
     const normalizedData = data.name.toLowerCase();
@@ -35,6 +32,12 @@ export class App extends Component {
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newPhoneBookEntry],
+    }));
+  };
+
+  deletePhoneBookEntry = entryId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== entryId),
     }));
   };
 
@@ -60,7 +63,10 @@ export class App extends Component {
 
         <h2>Contacts</h2>
         <Filter onChange={this.handleSearchByName} />
-        <ContactList contacts={filteredContacts} />
+        <ContactList
+          contacts={filteredContacts}
+          deletePhoneBookEntry={this.deletePhoneBookEntry}
+        />
       </div>
     );
   }

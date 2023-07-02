@@ -43,3 +43,17 @@ export const StyledListItem = styled.li`
   font-size: 1em;
   font-weight: 500;
 `;
+
+export const StyledSubmitButton = styled.button`
+  background-color: white;
+  border: 1px solid #c0c0c0;
+  border-radius: 5%;
+  padding: 5px 10px;
+  font-weight: 600;
+  transition: background-color ease-in 250ms;
+
+  &:hover,
+  &:focus {
+    background-color: aquamarine;
+  }
+`;
