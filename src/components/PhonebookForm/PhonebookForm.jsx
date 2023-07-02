@@ -1,4 +1,5 @@
 import { Formik, Field, ErrorMessage } from 'formik';
+import Filter from 'components/Filter/Filter';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import {
@@ -9,9 +10,8 @@ import {
   StyledLabel,
   StyledErrorMessage,
   StyledListItem,
-  StyledMaskedInput,
+  StyledMaskedInput, // Франкенштейн из Masked + Styled, который под капотом ещё наверное Field от формика инкапсулирует
 } from './PhonebookForm.styled';
-import MaskedInput from 'react-text-mask';
 
 // Инпут маска для номера телефона
 const phoneNumberMask = [
@@ -55,11 +55,19 @@ const schema = yup.object().shape({
 });
 
 // Далее идёт компонент формы
-const PhoneBookForm = ({ contacts, createPhoneBookEntry }) => {
+const PhoneBookForm = ({
+  contacts,
+  filter,
+  createPhoneBookEntry,
+  searchContactByName,
+}) => {
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
     createPhoneBookEntry(values);
     resetForm();
+  };
+
+  const handleSearchByName = ({ target: { value } }) => {
+    searchContactByName(value);
   };
 
   return (
@@ -74,7 +82,11 @@ const PhoneBookForm = ({ contacts, createPhoneBookEntry }) => {
           <StyledLabel htmlFor="name">
             Name
             <FieldContainer>
-              <StyledField type="text" name="name" />
+              <StyledField
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+              />
               <ErrorMessage name="name" component={StyledErrorMessage} />
             </FieldContainer>
           </StyledLabel>
@@ -91,7 +103,7 @@ const PhoneBookForm = ({ contacts, createPhoneBookEntry }) => {
                     id="number"
                     type="text"
                     // component="input"
-                    // ^ Тут пришлось убрать component="input". Если его добавить, то React начнёт срать варнингом.
+                    // ^ Тут пришлось убрать component="input". Если его добавить, то React начнёт слать варнинг.
                     // К счастью, по умолчанию InputMask итак использует input.
                     // Но если бы нужно было вставить другой тег, то это вызвало бы головную боль.
                     // Вроде, это как-то решается через <StyleSheetManager shouldForwardProp={(prop) => prop !== 'component'}>
@@ -107,6 +119,7 @@ const PhoneBookForm = ({ contacts, createPhoneBookEntry }) => {
           </div>
         </FormConstolsContainer>
         <h2>Contacts</h2>
+        <Filter value={filter} onChange={handleSearchByName} />
         <ul>
           {contacts.map(({ id, name, number }) => (
             <StyledListItem key={id}>
