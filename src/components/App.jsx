@@ -3,6 +3,7 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import { nanoid } from 'nanoid';
+import { normalizeOpts } from 'imask';
 
 export class App extends Component {
   state = {
@@ -18,6 +19,15 @@ export class App extends Component {
   filteredContacts = this.state.contacts;
 
   createPhoneBookEntry = data => {
+    const normalizedData = data.name.toLowerCase();
+    const { contacts } = this.state;
+    if (
+      contacts
+        .flatMap(({ name }) => [name.toLowerCase()])
+        .includes(normalizedData)
+    )
+      throw new Error('Such a contact already exists!');
+
     const newPhoneBookEntry = {
       ...data,
       id: nanoid(),

@@ -10,6 +10,7 @@ import {
   StyledErrorMessage,
   StyledMaskedInput, // Франкенштейн из Masked + Styled, который под капотом ещё наверное Field от формика инкапсулирует
 } from './ContactForm.styled';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 // Инпут маска для номера телефона
 const phoneNumberMask = [
@@ -55,7 +56,11 @@ const schema = yup.object().shape({
 // Далее идёт компонент формы
 const ContactForm = ({ createPhoneBookEntry }) => {
   const handleSubmit = (values, { resetForm }) => {
-    createPhoneBookEntry(values);
+    try {
+      createPhoneBookEntry(values);
+    } catch (err) {
+      Notify.failure(err.message);
+    }
     resetForm();
   };
 
